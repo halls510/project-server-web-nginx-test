@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    restart: always
+    networks:
+      - nginx
+    labels:
+      - traefik.enable=true
+      - traefik.port=80
+      - traefik.http.routers.nginx.rule=Host(`srvmail.nicoledepaula.adv.br`)
+      - traefik.http.routers.nginx.entrypoints=websecure
+      - traefik.http.routers.nginx.tls=true
+      - traefik.http.routers.nginx.tls.certresolver=myresolver
+
+networks:
+  nginx:
+    external: true
